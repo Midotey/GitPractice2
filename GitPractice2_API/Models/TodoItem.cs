@@ -4,13 +4,13 @@
     {
         public int Id { get; set; }
         public string Name { get; set; }
-        public string Task { get; set; }
+        public string Text { get; set; }
         public bool IsComplete { get; set; }
         public TodoItem() { }
-        public TodoItem(string name, string task)
+        public TodoItem(string name, string text)
         {
             Name = name;
-            Task = task;
+            Text = text;
         }
     }
 }
