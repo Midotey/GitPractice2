@@ -1,4 +1,7 @@
 
+using GitPractice2_API.Models;
+using Microsoft.EntityFrameworkCore;
+
 namespace GitPractice2_API
 {
     public class Program
@@ -9,10 +12,22 @@ namespace GitPractice2_API
 
             // Add services to the container.
 
+
             builder.Services.AddControllers();
             // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
             builder.Services.AddEndpointsApiExplorer();
             builder.Services.AddSwaggerGen();
+
+            //builder.Services.AddScoped<ITodoRepository, TodoRepository>(); 
+            //builder.Services.AddTransient<ITodoRepository, TodoRepository>();
+            //builder.Services.AddSingleton<ITodoRepository, TodoRepository>();
+            //builder.Services.AddScoped<ITodoRepository, TodoRepository>();
+            builder.Services.AddDbContext<TodoItemContext>(options =>
+            options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
+            builder.Services.AddTransient<ITodoRepository, TodoRepository>();
+            //builder.Services.AddHttpContextAccessor();
+
+
 
             var app = builder.Build();
 
@@ -26,7 +41,6 @@ namespace GitPractice2_API
             app.UseHttpsRedirection();
 
             app.UseAuthorization();
-
 
             app.MapControllers();
 
