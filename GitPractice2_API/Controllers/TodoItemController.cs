@@ -31,8 +31,9 @@ namespace GitPractice2_API.Controllers
             }
 
         }
+        //[Route("api/[controller]/{name}/{text}")]
         [HttpPost("name, text")]
-        public async Task PostTodoItem(string name, string text)
+        public async Task PostTodoItem([FromForm] string name, [FromForm] string text)
         {
             using (rep)
             {
@@ -52,7 +53,8 @@ namespace GitPractice2_API.Controllers
             }
         }
         [HttpPut("id, name, text, isComplete")]
-        public async Task UpdateTodoItem(int id, string name, string text, bool isComplete)
+        //public async Task UpdateTodoItem(/*[FromForm]*//*[FromBody]*/int id, /*[FromForm]*//*[FromBody]*/string name, /*[FromForm]*//*[FromBody]*/string text, /*[FromForm]*/ /*[FromBody]*/bool isComplete)
+        public async Task UpdateTodoItem([FromForm] int id, [FromForm] string name, [FromForm] string text, [FromForm] bool isComplete)
         {
             if (string.IsNullOrEmpty(name) == true || string.IsNullOrEmpty(text) == true)
                 return;
@@ -66,6 +68,10 @@ namespace GitPractice2_API.Controllers
                 await rep.UpdateTodoItem(/*id, */todoItem);
                 await rep.Save();
 
+                //string baseUrl = $"{Request.Scheme}://{Request.Host.Value}/{Request.Path}";
+                //string requestUri = $"{Request.Scheme}://{Request.Host.Value}/";
+                //var baseUrl = Request.Path;
+                //await Task.Delay(100);
             }
 
         }
