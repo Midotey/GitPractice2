@@ -29,7 +29,6 @@ namespace GitPractice2_API
                 db.Database.ExecuteSqlRaw("select setval('\"TodoItems_Id_seq\"', coalesce((select max(\"Id\") + 1 from \"TodoItems\" ti), 1), false);\r\nupdate \"TodoItems\" set \"Id\" =nextval('\"TodoItems_Id_seq\"') where \"Id\" > 0;\r\nalter sequence \"TodoItems_Id_seq\" restart with 1;\r\nupdate \"TodoItems\" set \"Id\" =nextval('\"TodoItems_Id_seq\"') where \"Id\" > 0;");
             };
         }
-        ///TODO: понять как и когда юзать dispose, и асихнронные операторы с repository pattern, как реализовать контроллеры.
         public async Task<IEnumerable<TodoItem>> GetTodoItems()
         {
             return await db.TodoItems.ToListAsync();
@@ -61,7 +60,7 @@ namespace GitPractice2_API
             db.TodoItems.Remove(todoItem);
             //ReorderId?.Invoke();
         }
-        public async Task UpdateTodoItem(/*int id, */TodoItem todoItem)   ///TODO: изменить метод update в контроллере и репозитории.
+        public async Task UpdateTodoItem(/*int id, */TodoItem todoItem)  
         {
             ////if(db.TodoItems.Any())
             //db.Entry(todoItem).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
